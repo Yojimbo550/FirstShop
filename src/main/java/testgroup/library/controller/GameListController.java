@@ -7,18 +7,20 @@ import org.springframework.web.servlet.ModelAndView;
 import testgroup.library.model.Game;
 import testgroup.library.service.GameListService;
 import testgroup.library.service.GameListServiceImpl;
-
 import java.util.List;
 
 @Controller
 public class GameListController {
+
     private int page;
 
     private GameListService gameListService = new GameListServiceImpl();
+
     @Autowired
     public void setGameListService(GameListService gameListService) {
         this.gameListService = gameListService;
     }
+
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editPage(@PathVariable("id") int id) {
         Game game = gameListService.getById(id);
@@ -27,6 +29,7 @@ public class GameListController {
         modelAndView.addObject("game", gameListService.getById(id));
         return modelAndView;
     }
+
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView editGame(@ModelAttribute("game") Game game) {
         ModelAndView modelAndView = new ModelAndView();
@@ -43,6 +46,7 @@ public class GameListController {
         modelAndView.addObject("gameList", games);
         return modelAndView;
     }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView greetingPage() {
 
@@ -52,13 +56,12 @@ public class GameListController {
         return modelAndView;
     }
 
-    
 
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
     public ModelAndView allGames(@RequestParam(defaultValue = "1") int page) {
         List<Game> games = gameListService.allGames(page);
         int gameCount = gameListService.gameCount();
-        int pagesCount = (gameCount + 9)/10;
+        int pagesCount = (gameCount + 9) / 10;
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("games");
         modelAndView.addObject("page", page);
@@ -67,12 +70,14 @@ public class GameListController {
         modelAndView.addObject("pagesCount", pagesCount);
         return modelAndView;
     }
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editPage");
         return modelAndView;
     }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView addGame(@ModelAttribute("game") Game game) {
         ModelAndView modelAndView = new ModelAndView();
@@ -82,14 +87,14 @@ public class GameListController {
     }
 
 
-
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView editPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editPage");
         return modelAndView;
     }
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteGame(@PathVariable("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
@@ -104,10 +109,6 @@ public class GameListController {
         modelAndView.setViewName("deletePage");
         return modelAndView;
     }
-
-    private static Game game;
-
-
 
 
 }

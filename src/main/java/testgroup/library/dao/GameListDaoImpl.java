@@ -5,12 +5,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import testgroup.library.model.Game;
-
 import java.util.*;
 
 @Repository
 public class GameListDaoImpl implements GameListDao {
-
 
 
     private SessionFactory sessionFactory;
@@ -27,6 +25,7 @@ public class GameListDaoImpl implements GameListDao {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("from Game").setFirstResult(10 * (page - 1)).setMaxResults(10).list();
     }
+
     public int gameCount() {
         Session session = sessionFactory.getCurrentSession();
         return session.createQuery("select count(*) from Game", Number.class).getSingleResult().intValue();

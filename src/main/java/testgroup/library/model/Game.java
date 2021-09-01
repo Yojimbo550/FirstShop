@@ -8,6 +8,7 @@ public class Game {
     public Game() {
 
     }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,7 +97,7 @@ public class Game {
     }
 
     public String toString() {
-        return title + " "  + year + " " + genre + " " + " " + brand + " " + ageControl + " " + cost + " " + numberOfCopies ;
+        return title + " " + year + " " + genre + " " + " " + brand + " " + ageControl + " " + cost + " " + numberOfCopies;
     }
 
 
